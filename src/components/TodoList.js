@@ -12,6 +12,7 @@ const TodoList = () => {
   // 상태를 관리하는 useState 훅을 사용하여 할 일 목록과 입력값을 초기화합니다.
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
+  const [dateInput, setDateInput] = useState(""); // 날짜 입력 필드에 대한 상태 추가
 
   // addTodo 함수는 입력값을 이용하여 새로운 할 일을 목록에 추가하는 함수입니다.
   const addTodo = () => {
@@ -26,9 +27,10 @@ const TodoList = () => {
     // ...todos => {id: 1, text: "할일1", completed: false}, {id: 2, text: "할일2", completed: false}}, ..
     setTodos([
       ...todos, 
-      { id: Date.now(), text: input, completed: false }
+      { id: Date.now(), text: input, completed: false, date: dateInput } // 새로운 할 일에 대한 날짜 값을 추가
     ]);
     setInput("");
+    setDateInput(""); // 할 일을 추가한 후에 날짜 입력 필드 값을 초기화
   };
 
   // toggleTodo 함수는 체크박스를 눌러 할 일의 완료 상태를 변경하는 함수입니다.
@@ -66,6 +68,13 @@ const TodoList = () => {
         className={styles.itemInput}
         value={input}
         onChange={(e) => setInput(e.target.value)}
+      />
+      {/* 날짜를 입력하는 필드를 추가 */}
+      <input
+        type="date"
+        className={styles.itemInput}
+        value={dateInput}
+        onChange={(e) => setDateInput(e.target.value)}
       />
       {/* 할 일을 추가하는 버튼입니다. */}
       <button className={styles.addButton} onClick={addTodo}>
